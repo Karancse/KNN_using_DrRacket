@@ -6,9 +6,7 @@
       (read)
       (let ([x (cons (read) (read-datapoint (- number-of-dimensions 1)))])
         (print x)
-        x
-      )
-      ))
+        x)))
 
 (define (get-dataset number-of-datapoints number-of-dimensions)
     (if (= number-of-datapoints 0)
@@ -18,17 +16,14 @@
 (define (get-classes number-of-datapoints)
     (if (= number-of-datapoints 1)
         (read)
-        (
-         let ([x (cons (read) (get-classes (- number-of-datapoints 1)))])
-        (print x)
-          x
-          )))
+        (let ([x (cons (read) (get-classes (- number-of-datapoints 1)))])
+          (print x)
+          x)))
 
 (define (first-datapoint dataset)
   (if (pair? dataset)
       (car dataset)
-      dataset)
-  )
+      dataset))
 
 (define (remaining-datapoints dataset)
   (if (pair? dataset)
@@ -38,14 +33,12 @@
 (define (first-dimension datapoint)
   (if (pair? datapoint)
       (car datapoint)
-      datapoint
-      ))
+      datapoint))
 
 (define (remaining-dimensions datapoint)
   (if (pair? datapoint)
       (cdr datapoint)
-      (list)
-      ))
+      (list)))
 
 (define (first values)
   (if (list? values)
@@ -117,11 +110,7 @@
       (if (< distance (first distances))
           ((cons datapoint dataset) (cons class classes) (cons distance distances))
           (let ([previous-iter (insert datapoint class distance (remaining dataset) (remaining classes) (remaining distances))])
-              ((cons (first dataset) (iter-dataset previous-iter)) (cons (first classes) (iter-classes previous-iter)) (cons (first distances) (iter-distances previous-iter))) 
-              )
-          )
-      )
-  )
+              ((cons (first dataset) (iter-dataset previous-iter)) (cons (first classes) (iter-classes previous-iter)) (cons (first distances) (iter-distances previous-iter)))))))
 
 (define (sort-by-distance dataset classes distances)
   (if (eq? (list) dataset)
@@ -129,10 +118,7 @@
       (let ([previous-iter (sort-by-distance (remaining dataset) (remaining classes) (remaining distances))])
         (if (number? previous-iter)
             (list dataset classes distances)
-            (insert (first dataset) (first classes) (first distances) (iter-dataset previous-iter) (iter-classes previous-iter) (iter-distances previous-iter))
-            )
-        ))
-  )
+            (insert (first dataset) (first classes) (first distances) (iter-dataset previous-iter) (iter-classes previous-iter) (iter-distances previous-iter))))))
 
 (define (find-class unique-values class-count)
   (if (eq? (list) unique-values)
@@ -160,9 +146,7 @@
       #f
       (if (= element (first elements))
           #t
-          (member element (remaining elements))
-          )
-  ))
+          (member element (remaining elements)))))
 
 (define (unique-values sorted-classes)
   (if (eq? (list) sorted-classes)
@@ -170,18 +154,13 @@
       (let ([previous-iter (unique-values (remaining sorted-classes))])
         (if (member (first sorted-classes) previous-iter)
             previous-iter
-            (cons (first sorted-classes) previous-iter)
-            )
-        )
-      )
-  )
+            (cons (first sorted-classes) previous-iter)))))
 
 (define (classify value-to-be-classified sorted-dataset sorted-classes)
   (define unique-classes (unique-values sorted-classes))
   (define class-count (count-list-frequency sorted-classes unique-classes))
   (define class (find-class unique-values class-count))
-  class
-  )
+  class)
 
 (define (find-nearest-point dataset value-to-be-classified)
   (if (empty? dataset)
@@ -241,19 +220,8 @@
   (define sorted-distances (cdr (cdr sorted-values)))
   (display "\nsorted-distances\n    ")
   (display sorted-distances)
-  """(classify value-to-be-classified sorted-dataset sorted-classes)
-""")
+  (classify value-to-be-classified sorted-dataset sorted-classes))
 
-(define (algo-choice algo)
-  (case algo
-   [(1) 'linearregression]
-   [(2) knn]
-   [(3) 'kmeans]
-   [else 'invalid]
-  )
-)
+(display "Welcome to the KNN classifier \n")
 
-(display "Welcome to Machine Learning Program \n Enter 1 for linear regression \n       2 for KNN \n       3 for k-means \n       ")
-(define algo (read))
-
-((algo-choice algo))
+(knn)
