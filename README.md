@@ -1,11 +1,10 @@
-# Machine_Learning_Algorithms_using_DrRacket
+# KNN_Algorithms_using_DrRacket
 
-Some of the basic machine learning algorithms are implemented using DrRacket.
+KNN stands for K-Nearest Neighbours
 
-The algorithms include:
-1) KNN
-2) KMeans
-3) Linear Regression
-4) Logistic Regression
+It is a machine learning algorithm to classify the data points based on the k closest datapoints from the training set.
 
-The project is under development. So, the code in this repository won't perform all the algorithms mentioned above.
+The code has a insertion sort based pair sort function which sorts based on the distance.
+
+
+The first-k values of the sorted dataset will be the k-nearest neighbours.
